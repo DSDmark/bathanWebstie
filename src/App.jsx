@@ -1,15 +1,12 @@
-import { Navbar } from "./components/"
-import { Note, Reel, Banner } from "./features/"
+// import { Note, Reel, Banner } from "./features/"
 import { Layout } from "./utils/"
+import AppRouter from "./routers/AppRouter.jsx"
 
 function App() {
   return (
     <>
       <Layout>
-        <Note />
-        <Navbar />
-        <Reel />
-        <Banner />
+        <AppRouter />
       </Layout>
     </>
   )
