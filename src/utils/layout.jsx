@@ -9,9 +9,7 @@ const Layout = ({ children }) => {
     <React.Fragment>
       <ThemeProvider theme={theme} >
         <CssBaseline />
-        <main>
-          {children}
-        </main>
+        {children}
       </ThemeProvider>
     </React.Fragment>
   )
