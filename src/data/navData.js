@@ -4,9 +4,9 @@ const data = {
   icons: ["PersonOutlineOutlined", "FavoriteBorderOutlined", "LocalGroceryStoreOutlined", "LocalShippingOutlined"],
   icons: [
     { value: "PersonOutlineOutlined", rout: "/" },
-    { value: "FavoriteBorderOutlined", rout: "/" },
-    { value: "LocalGroceryStoreOutlined", rout: "/" },
-    { value: "LocalShippingOutlined", rout: "/" },
+    { value: "FavoriteBorderOutlined", rout: "/products" },
+    { value: "LocalGroceryStoreOutlined", rout: "/cart" },
+    { value: "LocalShippingOutlined", rout: "/singleproduct" },
   ],
 }
 

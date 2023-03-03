@@ -1,8 +1,9 @@
-import { AppBar, Grid, useMediaQuery } from '@mui/material/';
+import { Link as MuiLink, AppBar, Grid, useMediaQuery } from '@mui/material/';
 import Toolbar from '@mui/material/Toolbar';
 import { navData } from "../../data/"
 import Searchbar from "./search.components"
 import Category from "./category.component.jsx"
+import { Link as RouterLink } from "react-router-dom"
 import Navicons from "./navicons.component"
 import DrawerComponent from "./drawer.component.jsx"
 
@@ -16,7 +17,9 @@ export default function Navebar() {
         <Searchbar />
       </Grid>
       <Grid item>
-        <img src={logo.url} alt={logo.alt} />
+        <MuiLink component={RouterLink} to="/">
+          <img src={logo.url} alt={logo.alt} />
+        </MuiLink>
       </Grid>
       <Grid item>
         <Navicons icons={icons} />
