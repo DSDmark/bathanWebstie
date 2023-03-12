@@ -2,10 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 import { Home, ErrorPage, Cart, Login, Signup, About, Product, Contact, SingleProduct } from "../pages/"
 import { Navbar } from "../components/"
 import { Container } from "@mui/material"
+import { SellOfferNote } from "../features/"
 
 const AppRouters = () => {
   return (
     <>
+      <SellOfferNote />
       <Navbar />
       <Container>
         <Routes>

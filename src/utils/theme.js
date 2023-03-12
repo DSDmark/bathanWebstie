@@ -4,6 +4,9 @@ const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        '::-webkit-scrollbar': {
+          display: "none"
+        },
         body: {
           textTransform: "uppercase",
         }
