@@ -13,7 +13,8 @@ const controller = {
       process.env.JWT_SECRET || "secret",
       { expiresIn: "1h" }
     );
-    res.json({ token, role: user.role });
+    res.setHeader("token", token);
+    res.status(200).json({ user });
   },
   register: async (req, res) => {
     try {

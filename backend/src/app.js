@@ -12,14 +12,14 @@ connectDB();
 app.use(
   cors({
     origin: "*",
-    exposedHeaders: ["X-Access"],
+    exposedHeaders: ["token"],
     allowedHeaders: [
       "Origin",
       "X-Requested-With",
       "Content-Type",
       "Accept",
       "Authorization",
-      "X-Access",
+      "token",
     ],
   })
 );
