@@ -1,7 +1,8 @@
 import { useLoginMutation } from "@/api/user";
 import { ErrorMessage } from "@/components";
 import { ALERT_MESSAGES, PROTECTED_ROUTE } from "@/constants";
-import { useFormikWithDefaultsProps } from "@/hooks";
+import { useAppDispatch, useFormikWithDefaultsProps } from "@/hooks";
+import { setUser } from "@/states";
 import { LoginValidationUtil } from "@/utils";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
@@ -23,9 +24,8 @@ import toast from "react-hot-toast";
 export default function LoginPage() {
   const router = useRouter();
   const [login, { isLoading, isError, isSuccess, data }] = useLoginMutation();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const formik = useFormikWithDefaultsProps({
-    enableReinitialize: true,
     initialValues: {
       email: "",
       password: "",
@@ -45,6 +45,7 @@ export default function LoginPage() {
     if (isSuccess) {
       formik.setSubmitting(false);
       toast.success("User Login Succeeded");
+      dispatch(setUser(data.data));
       router.push(PROTECTED_ROUTE.dashboard);
     }
     if (isSuccess || isError) {

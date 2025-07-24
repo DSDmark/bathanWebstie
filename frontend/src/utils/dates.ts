@@ -1,7 +1,7 @@
 import { MAIN_DATE_FORMAT, MAIN_TIME_FORMAT } from "@/constants";
 import moment, { type Moment } from "moment";
 
-import { formatTwoValues } from "./common";
+import { formatTwoValuesUtil } from "./common";
 
 export function formatDateUtil(
   dateString: string | Date | Moment | null,
@@ -19,7 +19,7 @@ export function formatDateUtil(
   }
 
   return dateString
-    ? formatTwoValues(
+    ? formatTwoValuesUtil(
         dateTime.format(formatDate),
         dateTime.format(MAIN_TIME_FORMAT)
       )

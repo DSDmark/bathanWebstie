@@ -26,7 +26,7 @@ export const handleCloseUtil = (setState: any) => {
   });
 };
 
-export function formatTwoValues(
+export function formatTwoValuesUtil(
   val1?: string,
   val2?: any,
   symbol: string = ","

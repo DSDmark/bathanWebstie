@@ -1,25 +1,31 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
-export type ToolsRoles = "Master" | "Distributor" | "Coach" | "Referent"
+export type ToolsRoles = "Master" | "Distributor" | "Coach" | "Referent";
 
 // interfaces definition
 export interface IChildrenProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export interface ISelectWithSearch {
-  id: number
-  value: string
-  label: string
+  id: number;
+  value: string;
+  label: string;
 }
 
-export type t = (e: string) => string
+export type t = (e: string) => string;
 
 export type Filters = {
-  type?: string
-  page?: number
-  search?: string
-  pagePerItm?: number
-  to?: string
-  from?: string
-  limit?: number
+  type?: string;
+  page?: number;
+  search?: string;
+  pagePerItm?: number;
+  to?: string;
+  from?: string;
+  limit?: number;
+};
+
+export interface IFontStyles {
+  fontFamily: string;
+  fontStyle?: string;
+  fontWeight?: string | number;
 }

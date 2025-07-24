@@ -1,6 +1,16 @@
-const mongoose = require("mongoose");
+import mongoose, { Document, Schema } from "mongoose"
 
-const UserSchema = new mongoose.Schema({
+export interface IUser extends Document {
+  name: string
+  email: string
+  password: string
+  role: "manager" | "engineer"
+  skills: string[]
+  seniority: "junior" | "mid" | "senior"
+  employmentType: "full-time" | "part-time"
+}
+
+const UserSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -12,6 +22,6 @@ const UserSchema = new mongoose.Schema({
     enum: ["full-time", "part-time"],
     required: true,
   },
-});
+})
 
-module.exports = mongoose.model("User", UserSchema);
+export const User = mongoose.model<IUser>("User", UserSchema)

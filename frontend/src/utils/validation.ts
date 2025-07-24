@@ -43,7 +43,7 @@ export const commonUtil = () => {
     positiveNumber: number().positive().integer(),
     confirmPass: string()
       .test("passwords-match", `passwords must match`, function (value) {
-        return value === this.parent.newPassword;
+        return value === this.parent.password;
       })
       .trim(),
   };
@@ -52,4 +52,13 @@ export const commonUtil = () => {
 export const LoginValidationUtil = object().shape({
   email: commonUtil().email.required(COMMON_VALIDATION_MASSAGE.emailValidation),
   password: commonUtil().password.required(COMMON_VALIDATION_MASSAGE.password),
+});
+
+export const RegisterValidationUtil = object().shape({
+  email: commonUtil().email.required(COMMON_VALIDATION_MASSAGE.emailValidation),
+  userName: commonUtil().name.required(COMMON_VALIDATION_MASSAGE.name),
+  password: commonUtil().password.required(COMMON_VALIDATION_MASSAGE.password),
+  confirmPassword: commonUtil().confirmPass.required(
+    COMMON_VALIDATION_MASSAGE.password
+  ),
 });

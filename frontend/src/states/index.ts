@@ -5,11 +5,13 @@ import { rtkQueryErrorLogger } from "./middleware";
 
 // reducers
 import { DEV } from "@/constants";
+import uiReducer from "./reducers/ui";
 import userReducer from "./reducers/user";
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   user: userReducer,
+  ui: uiReducer,
 });
 
 const makeStore = () => {

@@ -17,9 +17,22 @@ const userAPIs = apiWithAuthTags.injectEndpoints({
         };
       },
     }),
+    register: builder.mutation<SuccessResult<any>, any>({
+      query: (data) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: data,
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation } = userAPIs;
+export const { useLoginMutation, useRegisterMutation } = userAPIs;
 
 export default userAPIs;
