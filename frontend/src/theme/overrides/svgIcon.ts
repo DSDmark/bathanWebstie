@@ -1,5 +1,5 @@
-import { IOverridesProps } from '../type'
 import { Components } from '@mui/material'
+import { IOverridesProps } from '../type'
 
 export default function SvgIcon(overrides: IOverridesProps): Components {
   const { theme } = overrides
@@ -7,7 +7,7 @@ export default function SvgIcon(overrides: IOverridesProps): Components {
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          color: theme.palette.primary.contrastText,
+          color: theme.palette.primary.light,
         },
       },
     },

@@ -1,26 +1,26 @@
-import React from "react";
-import { Typography, GridLegacy as Grid, Paper } from "@mui/material";
-import { ROLES } from "@/constants";
-import { EngineerDashboard, ManagerDashboard } from "@/components";
-import AvailabilityPlanning from "@/components/dashboards/availability";
+import { EngineerDashboard, ManagerDashboard } from '@/components'
+import AvailabilityPlanning from '@/components/dashboards/availability'
+import { ROLES } from '@/constants'
+import { useAppSelector } from '@/hooks'
+import { GridLegacy as Grid, Paper, Typography } from '@mui/material'
 
 export default function DashboardPage() {
-  let Content;
-  const role: any = "Manager";
-  switch (role) {
+  const { details } = useAppSelector(({ user }) => user)
+  let Content
+  switch (details.role) {
     case ROLES.engineer:
-      Content = ManagerDashboard;
-      break;
+      Content = ManagerDashboard
+      break
     case ROLES.manager:
-      Content = EngineerDashboard;
-      break;
+      Content = EngineerDashboard
+      break
     default:
-      Content = AvailabilityPlanning;
+      Content = AvailabilityPlanning
   }
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        Welcome to the Dashboard
+      <Typography variant='h5' gutterBottom>
+        Hey {details.name}, Welcome
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={4}>
@@ -30,5 +30,5 @@ export default function DashboardPage() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }

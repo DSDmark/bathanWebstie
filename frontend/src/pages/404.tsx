@@ -1,13 +1,14 @@
-import { AUTH_ROUTE } from "@/constants";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { PROTECTED_ROUTE } from '@/constants'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Custom404() {
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    router.replace(AUTH_ROUTE.main);
-  }, [router]);
+    router.replace(PROTECTED_ROUTE.dashboard)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router])
 
-  return null;
+  return null
 }

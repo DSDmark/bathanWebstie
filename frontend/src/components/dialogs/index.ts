@@ -1,2 +1,2 @@
-export { default as EngineerDialog } from "./engineer";
-export { default as ManagerDialog } from "./manager";
+export { default as EngineerDialog } from './engineer'
+export { default as ManagerDialog } from './profileDialog'

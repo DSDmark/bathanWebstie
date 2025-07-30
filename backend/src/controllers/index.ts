@@ -1,2 +1,5 @@
 export * from "./auth.controller.js"
-export * from "./user.controller.js"
+export * from "./departments.controller.js"
+export * from "./seniority-levels.controller.js"
+export * from "./skills.controller.js"
+export * from "./users.controller.js"

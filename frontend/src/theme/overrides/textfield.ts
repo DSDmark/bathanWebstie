@@ -1,11 +1,13 @@
 import { Components } from '@mui/material'
 import { IOverridesProps } from '../type'
 
-export default function TextField(overrides: IOverridesProps): Components {
+export default function TextField(_: IOverridesProps): Components {
   return {
-    MuiTextField: {
+    MuiInputBase: {
       styleOverrides: {
-        root: {},
+        input: {
+          textTransform: 'capitalize',
+        },
       },
     },
   }

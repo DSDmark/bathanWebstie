@@ -1,3 +1,5 @@
+import { SERVER_ERRORS } from "@/constants/common.js"
+import { sendResponseUtil } from "@/utils/response.js"
 import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
 
@@ -16,7 +18,7 @@ export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
     req.user = decoded
     next()
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" })
+    sendResponseUtil(res, 401, SERVER_ERRORS.invalidToken)
   }
 }
 
@@ -24,7 +26,7 @@ export const restrictTo =
   (...roles: string[]) =>
   (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ message: "Permission denied" })
+      sendResponseUtil(res, 403, SERVER_ERRORS.permissionDenied)
     }
     next()
   }

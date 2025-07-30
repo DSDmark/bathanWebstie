@@ -1,6 +1,6 @@
 export const ROLES = Object.freeze({
-  manager: "Manager",
-  engineer: "Engineer",
+  manager: "manager",
+  engineer: "engineer",
 })
 
 export const ALERT_MESSAGES = Object.freeze({
@@ -19,6 +19,9 @@ export const ALERT_MESSAGES = Object.freeze({
 })
 
 export const SERVER_ERRORS = {
+  dateNotFound: "Date not found!",
   internalServer: "Server is too busy to process others!",
   inValidDetails: "Provided details is not valid!",
+  permissionDenied: "You don't have permission!",
+  invalidToken: "Your session is expired, please login!",
 }

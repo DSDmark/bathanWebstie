@@ -1,5 +1,5 @@
-import { IOverridesProps } from '../type'
 import { Components } from '@mui/material'
+import { IOverridesProps } from '../type'
 export default function Icon(overrides: IOverridesProps): Components {
   const { theme } = overrides
   return {
@@ -7,7 +7,7 @@ export default function Icon(overrides: IOverridesProps): Components {
       styleOverrides: {
         root: {
           fontSize: 'large',
-          color: theme.palette.primary.light,
+          color: theme.palette.primary.dark,
         },
       },
     },

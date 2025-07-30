@@ -1,5 +1,6 @@
 import { Toaster } from "@/components";
 import { RoutesValidator } from "@/hocs";
+import { useNProgress } from "@/hooks";
 import store from "@/states";
 import ThemeProvider from "@/theme";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -8,6 +9,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
 export default function App({ Component, pageProps }: AppProps) {
+  useNProgress();
   return (
     <Provider store={store}>
       <ThemeProvider>

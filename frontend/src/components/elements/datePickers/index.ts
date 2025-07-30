@@ -1,1 +1,1 @@
-export { default as BasicDatePicker } from "./basic";
+export * from './basic'

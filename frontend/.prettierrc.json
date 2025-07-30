@@ -1,0 +1,27 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "overrides": [
+    {
+      "files": [".json"],
+      "options": {
+        "parser": "json",
+        "trailingComma": "all",
+        "tabWidth": 2,
+        "semi": false,
+        "singleQuote": false,
+        "printWidth": 120,
+        "arrowParens": "avoid",
+        "endOfLine": "auto"
+      }
+    }
+  ]
+}

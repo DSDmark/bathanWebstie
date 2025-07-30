@@ -1,6 +1,15 @@
-import { IUserInitialState } from "../types";
+import { IUserInitialState } from '../types'
 
 export const userInitialState: IUserInitialState = {
-  details: {},
+  details: {
+    name: '',
+    id: '',
+    email: '',
+    role: '',
+    department: { id: '', name: '' },
+    contact: '',
+    skills: [],
+    description: '',
+  },
   isLogin: false,
-};
+}
