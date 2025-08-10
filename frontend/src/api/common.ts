@@ -41,6 +41,18 @@ const commonAPIs = apiWithAuthTags.injectEndpoints({
         }
       },
     }),
+    getEmpTypes: builder.query<SuccessResult<any>, any>({
+      query: params => ({
+        url: urlcat('/common/emp-types', params),
+        method: 'GET',
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        }
+      },
+    }),
   }),
 })
 

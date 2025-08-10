@@ -8,7 +8,6 @@ interface IErrorResponse {
 }
 
 const formatErrorMessage = (err: IErrorResponse | IErrorResponse['message'] | any): string => {
-  console.log(err.data, 'here')
   // redux custom error
   if (err?.data?.status === SERVER_STATUS_CODE.forbidden && typeof err?.data?.message === 'string') {
     return err?.data?.message

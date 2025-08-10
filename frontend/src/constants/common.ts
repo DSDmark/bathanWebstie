@@ -3,6 +3,11 @@ export const ROLES = Object.freeze({
   engineer: 'engineer',
 })
 
+export const EMP_TYPES = Object.freeze({
+  FULL_TIME: { id: 'full-time', name: 'Full-time (100%)' },
+  PART_TIME: { id: 'part-time', name: 'Part-time (50%)' },
+})
+
 export const ALERT_MESSAGES = Object.freeze({
   // not found
   dataNoFount: 'Data not found',

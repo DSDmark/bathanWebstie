@@ -9,4 +9,5 @@ export interface ICommonInitialState {
   skills: CommonData
   departments: CommonData
   seniorityLevels: CommonData
+  empTypes: CommonData
 }

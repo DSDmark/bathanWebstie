@@ -1,5 +1,5 @@
 import { SelectWithSearch } from '@/components'
-import { EDIT_PROFILE_FORM_FIELDS } from '@/constants'
+import { EDIT_PROFILE_FORM_FIELDS, EMP_TYPES } from '@/constants'
 import { useAppSelector } from '@/hooks'
 import { Box, FormControl, Slider, TextField, Typography } from '@mui/material'
 import { FormikProps } from 'formik'
@@ -24,10 +24,7 @@ const EngineerProfile = ({ formik }: IProps) => {
       />
       <FormControl fullWidth>
         <SelectWithSearch
-          options={[
-            { id: 'Full-time', name: 'Full-time (100%)' },
-            { id: 'Part-time', name: 'Part-time (50%)' },
-          ]}
+          options={Object.values(EMP_TYPES)}
           label='Employment Type'
           required
           value={formik.values.employmentType}

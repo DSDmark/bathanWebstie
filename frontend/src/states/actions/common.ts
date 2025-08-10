@@ -22,6 +22,18 @@ export const getAllDepartmentData = createAsyncThunk(
   },
 )
 
+export const getAllEmpTypesData = createAsyncThunk(
+  'common/emp-types',
+  async (id: string = '', { dispatch, rejectWithValue }) => {
+    const res = await dispatch(commonAPIs.endpoints.getEmpTypes.initiate({ id }))
+    if (res.data) {
+      return res.data
+    } else {
+      return rejectWithValue(res.error)
+    }
+  },
+)
+
 export const getAllSeniorityLevelsData = createAsyncThunk(
   'common/seniority-levels',
   async (id: string = '', { dispatch, rejectWithValue }) => {

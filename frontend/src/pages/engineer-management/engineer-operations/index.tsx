@@ -1,5 +1,6 @@
+import { useGetAllUserListByRoleQuery } from '@/api/user'
 import { BasicTable } from '@/components'
-import { PROTECTED_ROUTE } from '@/constants'
+import { PROTECTED_ROUTE, ROLES } from '@/constants'
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Button, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -32,6 +33,10 @@ const engineers: Engineer[] = [
 ]
 
 export default function EngineerManagementSection() {
+  const { data, isLoading, isFetching, isUninitialized } = useGetAllUserListByRoleQuery({
+    role: ROLES.engineer,
+  })
+
   return (
     <Box p={4}>
       <Box display='flex' justifyContent='space-between' alignItems='center' mb={3}>
@@ -49,10 +54,10 @@ export default function EngineerManagementSection() {
         </Button>
       </Box>
       <BasicTable
-        // isApiInitialized={isUninitialized}
+        isApiInitialized={isUninitialized}
         columns={['Name', 'Email', 'Department', 'Actions']}
-        rows={engineers}
-        // isLoading={isFetching || isLoading}
+        rows={data?.data || []}
+        isLoading={isFetching || isLoading}
         // totalCount={state.pagination?.total}
         // page={state.filters?.page}
         // perPage={pagePerItm}

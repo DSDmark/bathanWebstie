@@ -1,11 +1,18 @@
 import { NextFunction, Request, Response } from "express"
 
-import { SERVER_ERRORS } from "@/constants/common.js"
+import { ROLES, SERVER_ERRORS } from "@/constants/common.js"
+import { AuthRequest } from "@/middlewares/auth.middleware.js"
 import { User } from "@/modules/index.js"
+import { generateRandomPasswordUtil } from "@/utils/common.js"
 import { sendResponseUtil } from "@/utils/response.js"
+import bcrypt from "bcryptjs"
 
 export interface IUserController {
-  userById: (req: Request, res: Response, next: NextFunction) => Promise<void>
+  userById: (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>
   currentUser: (
     req: Request,
     res: Response,
@@ -15,10 +22,26 @@ export interface IUserController {
 
 export const userById = async (req, res) => {
   const user = await User.findById(req.params.id)
-  if (!user || (req.user.role === "engineer" && req.user.id !== user._id)) {
-    return res.status(403).json({ message: SERVER_ERRORS.permissionDenied })
+  if (
+    !user ||
+    (req.user.role === "engineer" && req.user.id !== user._id.toString())
+  ) {
+    return sendResponseUtil(res, 403, SERVER_ERRORS.permissionDenied)
   }
   res.json(user)
+}
+
+export const userByRole = async (req, res) => {
+  const users = await User.find({ role: req.query.role }).populate(
+    "seniorityLevels departments"
+  )
+  if (req.user.role !== ROLES.manager) {
+    return sendResponseUtil(res, 403, SERVER_ERRORS.permissionDenied)
+  }
+  if (!users.length) {
+    return sendResponseUtil(res, 404, SERVER_ERRORS.dateNotFound)
+  }
+  return sendResponseUtil(res, 200, "User fetched successfully", users)
 }
 
 export const currentUser = async (req, res) => {
@@ -67,6 +90,59 @@ export const updateUserProfile = async (req, res) => {
     )
   } catch (error) {
     console.log(error)
+    return sendResponseUtil(res, 500, SERVER_ERRORS.internalServer)
+  }
+}
+
+export const createEngineerUser = async (req, res) => {
+  try {
+    const allowedFields = [
+      "name",
+      "email",
+      "contact",
+      "department",
+      "description",
+      "skills",
+      "password",
+      "seniorityLevels",
+      "empType",
+    ]
+
+    const createPayload: { [key: string]: any } = {}
+
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        createPayload[field] = req.body[field]
+      }
+    }
+
+    let plainPassword = createPayload.password
+    if (!plainPassword) {
+      plainPassword = generateRandomPasswordUtil()
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    createPayload.password = await bcrypt.hash(plainPassword, salt)
+
+    createPayload.role = ROLES.engineer
+
+    if (createPayload.seniorityLevels) {
+      createPayload.seniority = createPayload.seniorityLevels
+      delete createPayload.seniorityLevels
+    }
+
+    if (createPayload.empType) {
+      createPayload.employmentType = createPayload.empType
+      delete createPayload.empType
+    }
+
+    await User.create(createPayload)
+
+    return sendResponseUtil(res, 201, "Engineer user created successfully", {
+      generatedPassword: plainPassword,
+    })
+  } catch (error) {
+    console.error(error)
     return sendResponseUtil(res, 500, SERVER_ERRORS.internalServer)
   }
 }

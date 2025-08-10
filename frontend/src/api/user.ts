@@ -1,3 +1,4 @@
+import urlcat from 'urlcat'
 import { baseApi } from '.'
 import { SuccessResult } from './types/base'
 
@@ -55,9 +56,40 @@ const userAPIs = apiWithAuthTags.injectEndpoints({
         }
       },
     }),
+    createEngineer: builder.mutation<SuccessResult<any>, any>({
+      query: data => ({
+        url: '/user/create-engineer',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        }
+      },
+    }),
+    getAllUserListByRole: builder.query<SuccessResult<any>, any>({
+      query: data => ({
+        url: urlcat('/user/user-by-role', data),
+        method: 'GET',
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        }
+      },
+    }),
   }),
 })
 
-export const { useLoginMutation, useRegisterMutation, useUpdateUserProfileMutation } = userAPIs
+export const {
+  useGetAllUserListByRoleQuery,
+  useLoginMutation,
+  useRegisterMutation,
+  useUpdateUserProfileMutation,
+  useCreateEngineerMutation,
+} = userAPIs
 
 export default userAPIs

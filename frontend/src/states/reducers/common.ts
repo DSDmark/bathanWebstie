@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getAllDepartmentData, getAllSeniorityLevelsData, getAllSkillsData } from '../actions'
+import { getAllDepartmentData, getAllEmpTypesData, getAllSeniorityLevelsData, getAllSkillsData } from '../actions'
 import { commonInitialState } from '../constants/common'
 
 const commonSlice = createSlice({
@@ -35,6 +35,20 @@ const commonSlice = createSlice({
     builder.addCase(getAllDepartmentData.rejected, state => {
       state.departments.data = commonInitialState.departments.data
       state.departments.isLoading = false
+    })
+    // emp types
+    builder.addCase(getAllEmpTypesData.pending, state => {
+      state.empTypes.data = []
+      state.empTypes.data = commonInitialState.empTypes.data
+      state.empTypes.isLoading = true
+    })
+    builder.addCase(getAllEmpTypesData.fulfilled, (state, action) => {
+      state.empTypes.data = action.payload.data
+      state.empTypes.isLoading = false
+    })
+    builder.addCase(getAllEmpTypesData.rejected, state => {
+      state.empTypes.data = commonInitialState.empTypes.data
+      state.empTypes.isLoading = false
     })
     // seniority levels
     builder.addCase(getAllSeniorityLevelsData.pending, state => {

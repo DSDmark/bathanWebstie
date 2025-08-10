@@ -7,7 +7,7 @@ const BaseUserSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true },
     contact: { type: Number },
-    department: { type: String },
+    department: { type: String, ref: "department" },
     description: { type: String },
     password: String,
     skills: [
@@ -23,7 +23,7 @@ const BaseUserSchema = new Schema(
     },
     seniority: {
       type: String,
-      enum: ["junior", "mid", "senior"],
+      ref: "seniorityLevel",
     },
     employmentType: {
       type: String,
