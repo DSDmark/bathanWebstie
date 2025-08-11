@@ -1,6 +1,6 @@
 import { PROTECTED_ROUTE } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { resetUser } from '@/states'
+import { logoutUser } from '@/states/actions/user'
 import { OnClick, SetStateAction } from '@/types'
 import { handleCloseUtil, handleOpenUtil } from '@/utils'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -88,7 +88,7 @@ const UserProfile = ({ state, setState, user }: IProps) => {
   }
 
   const handleLogout = () => {
-    dispatch(resetUser())
+    dispatch(logoutUser())
     handleCloseUtil(setState)
   }
   return (

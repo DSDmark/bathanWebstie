@@ -21,19 +21,21 @@ export interface IUserController {
 }
 
 export const userById = async (req, res) => {
-  const user = await User.findById(req.params.id)
-  if (
-    !user ||
-    (req.user.role === "engineer" && req.user.id !== user._id.toString())
-  ) {
+  const users = await User.findById(req.query.id).populate(
+    "seniority department"
+  )
+  if (req.user.role !== ROLES.manager) {
     return sendResponseUtil(res, 403, SERVER_ERRORS.permissionDenied)
   }
-  res.json(user)
+  if (!users) {
+    return sendResponseUtil(res, 404, SERVER_ERRORS.dateNotFound)
+  }
+  return sendResponseUtil(res, 200, "User fetched successfully", users)
 }
 
 export const userByRole = async (req, res) => {
   const users = await User.find({ role: req.query.role }).populate(
-    "seniorityLevels departments"
+    "seniority department"
   )
   if (req.user.role !== ROLES.manager) {
     return sendResponseUtil(res, 403, SERVER_ERRORS.permissionDenied)
@@ -141,6 +143,62 @@ export const createEngineerUser = async (req, res) => {
     return sendResponseUtil(res, 201, "Engineer user created successfully", {
       generatedPassword: plainPassword,
     })
+  } catch (error) {
+    console.error(error)
+    return sendResponseUtil(res, 500, SERVER_ERRORS.internalServer)
+  }
+}
+
+export const updateEngineerUser = async (req, res) => {
+  try {
+    const { id } = req.body
+
+    const allowedFields = [
+      "name",
+      "email",
+      "contact",
+      "department",
+      "description",
+      "skills",
+      "seniorityLevels",
+      "empType",
+    ]
+
+    const updatePayload: { [key: string]: any } = {}
+
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        updatePayload[field] = req.body[field]
+      }
+    }
+
+    // Map seniorityLevels → seniority
+    if (updatePayload.seniorityLevels) {
+      updatePayload.seniority = updatePayload.seniorityLevels
+      delete updatePayload.seniorityLevels
+    }
+
+    // Map empType → employmentType
+    if (updatePayload.empType) {
+      updatePayload.employmentType = updatePayload.empType
+      delete updatePayload.empType
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, updatePayload, {
+      new: true,
+      runValidators: true,
+    })
+
+    if (!updatedUser) {
+      return sendResponseUtil(res, 404, SERVER_ERRORS.dateNotFound)
+    }
+
+    return sendResponseUtil(
+      res,
+      200,
+      "Engineer user updated successfully",
+      updatedUser
+    )
   } catch (error) {
     console.error(error)
     return sendResponseUtil(res, 500, SERVER_ERRORS.internalServer)

@@ -63,7 +63,15 @@ export default function RegisterPage() {
         <Box component='form' onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
           <TextField fullWidth label='Username' margin='normal' required {...formik.getFieldProps('userName')} />
           <ErrorMessage fieldName='userName' formik={formik} />
-          <TextField fullWidth label='Email' margin='normal' required {...formik.getFieldProps('email')} />
+          <TextField
+            fullWidth
+            label='Email'
+            sx={{ textTransform: 'lowercase' }}
+            type='email'
+            margin='normal'
+            required
+            {...formik.getFieldProps('email')}
+          />
           <ErrorMessage fieldName='email' formik={formik} />
           <SelectWithSearch
             options={departments.data}

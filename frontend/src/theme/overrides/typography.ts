@@ -1,5 +1,5 @@
-import { IOverridesProps } from '../type'
 import { Components } from '@mui/material'
+import { IOverridesProps } from '../type'
 
 export default function Typography(overrides: IOverridesProps): Components {
   const { theme } = overrides

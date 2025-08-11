@@ -2,35 +2,23 @@ import { useGetAllUserListByRoleQuery } from '@/api/user'
 import { BasicTable } from '@/components'
 import { PROTECTED_ROUTE, ROLES } from '@/constants'
 import AddIcon from '@mui/icons-material/Add'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Link as MuiLink, Typography } from '@mui/material'
 import Link from 'next/link'
+import urlcat from 'urlcat'
 
-interface Engineer {
-  id: string
-  name: string
-  email: string
-  department: string
-  contact: string
-  avatar?: string
+const transformRow = (itm: any) => {
+  return {
+    name: itm.name,
+    email: <Typography sx={{ textTransform: 'lowercase' }}>{itm.email}</Typography>,
+    department: itm.department.name,
+    seniorityLevel: itm.seniority.name,
+    actions: (
+      <MuiLink component={Link} href={urlcat(PROTECTED_ROUTE.engineerAddEdit, { id: itm.id })}>
+        Edit
+      </MuiLink>
+    ),
+  }
 }
-
-// Dummy Data
-const engineers: Engineer[] = [
-  {
-    id: '1',
-    name: 'Riya Sharma',
-    email: 'riya.sharma@example.com',
-    department: 'Frontend',
-    contact: '9876543210',
-  },
-  {
-    id: '2',
-    name: 'Aman Verma',
-    email: 'aman.verma@example.com',
-    department: 'Backend',
-    contact: '9123456789',
-  },
-]
 
 export default function EngineerManagementSection() {
   const { data, isLoading, isFetching, isUninitialized } = useGetAllUserListByRoleQuery({
@@ -55,8 +43,8 @@ export default function EngineerManagementSection() {
       </Box>
       <BasicTable
         isApiInitialized={isUninitialized}
-        columns={['Name', 'Email', 'Department', 'Actions']}
-        rows={data?.data || []}
+        columns={['Name', 'Email', 'Department', 'Seniority Level', 'Actions']}
+        rows={data?.data.map((itm: any) => transformRow(itm)) || []}
         isLoading={isFetching || isLoading}
         // totalCount={state.pagination?.total}
         // page={state.filters?.page}

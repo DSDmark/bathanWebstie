@@ -1,14 +1,14 @@
-import { IOverridesProps } from '../type'
 import { Components } from '@mui/material'
+import { IOverridesProps } from '../type'
 
-export default function Link(_: IOverridesProps): Components {
+export default function Link({ theme }: IOverridesProps): Components {
   return {
     MuiLink: {
       styleOverrides: {
         root: {
-          color: 'inherit',
           textDecoration: 'none',
           underline: 'none',
+          color: theme.palette.primary.light,
           '&:hover': {
             cursor: 'pointer',
           },

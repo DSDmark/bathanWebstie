@@ -62,7 +62,7 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }: SidebarProps
   }
   useEffect(() => {
     if (details?.role) {
-      const permissions = roleBasePageAccessUtil(details?.role) || []
+      const permissions = roleBasePageAccessUtil(details?.role as any) || []
       const newFilteredMenuRoute = SIDEBAR_MENU.filter((menu: any) => {
         if (menu.path && permissions.includes(menu.path)) {
           return true

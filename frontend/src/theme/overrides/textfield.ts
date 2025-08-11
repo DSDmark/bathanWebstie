@@ -6,7 +6,12 @@ export default function TextField(_: IOverridesProps): Components {
     MuiInputBase: {
       styleOverrides: {
         input: {
-          textTransform: 'capitalize',
+          '&[type="email"]': {
+            textTransform: 'none !important',
+          },
+          '&[type="password"]': {
+            textTransform: 'none !important',
+          },
         },
       },
     },

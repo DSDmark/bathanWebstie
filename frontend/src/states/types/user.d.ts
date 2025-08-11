@@ -6,7 +6,7 @@ export interface IUserInitialState {
     id?: string
     name?: string
     email?: string
-    role?: keyof typeof ROLES
+    role?: keyof typeof ROLES | string
     department?: IOptionsFormat
     contact?: string
     skills?: IOptionsFormat[]

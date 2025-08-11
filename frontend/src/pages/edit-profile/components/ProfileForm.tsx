@@ -10,7 +10,14 @@ const ProfileForm = ({ formik, details, skills }: any) => {
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         <TextField label='Name' fullWidth required {...formik.getFieldProps('name')} />
-        <TextField label='Email' disabled fullWidth value={details?.email} aria-readonly />
+        <TextField
+          label='Email'
+          sx={{ textTransform: 'lowercase' }}
+          disabled
+          fullWidth
+          value={details?.email}
+          aria-readonly
+        />
         <TextField label='Description' multiline rows={3} fullWidth {...formik.getFieldProps('description')} />
         <TextField label='Contact' type='tel' fullWidth {...formik.getFieldProps('contact')} />
         <SelectWithSearch

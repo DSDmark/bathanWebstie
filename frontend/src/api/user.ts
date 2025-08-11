@@ -42,6 +42,7 @@ const userAPIs = apiWithAuthTags.injectEndpoints({
           data: res.data,
         }
       },
+      providesTags: ['user'],
     }),
     updateUserProfile: builder.mutation<SuccessResult<any>, any>({
       query: data => ({
@@ -68,10 +69,38 @@ const userAPIs = apiWithAuthTags.injectEndpoints({
           data: res.data,
         }
       },
+      invalidatesTags: ['user'],
+    }),
+    updateEngineer: builder.mutation<SuccessResult<any>, any>({
+      query: data => ({
+        url: '/user/update-engineer',
+        method: 'PATCH',
+        body: data,
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        }
+      },
+      invalidatesTags: ['user'],
     }),
     getAllUserListByRole: builder.query<SuccessResult<any>, any>({
       query: data => ({
         url: urlcat('/user/user-by-role', data),
+        method: 'GET',
+      }),
+      transformResponse: (res: any) => {
+        return {
+          message: res.message,
+          data: res.data,
+        }
+      },
+      providesTags: ['user'],
+    }),
+    getUserById: builder.query<SuccessResult<any>, any>({
+      query: data => ({
+        url: urlcat('/user/user-by-id', data),
         method: 'GET',
       }),
       transformResponse: (res: any) => {
@@ -85,11 +114,16 @@ const userAPIs = apiWithAuthTags.injectEndpoints({
 })
 
 export const {
+  // query
   useGetAllUserListByRoleQuery,
+  useGetUserByIdQuery,
+
+  // mutation
   useLoginMutation,
   useRegisterMutation,
   useUpdateUserProfileMutation,
   useCreateEngineerMutation,
+  useUpdateEngineerMutation,
 } = userAPIs
 
 export default userAPIs
